@@ -9,9 +9,17 @@ string white = "white";
 //array of colors for sequence
 string[] listOfColours = [red, blue, green, yellow, black, white];
 
+//main
+
+StartGame();
 string[] secretOrder = GetRandomSequence();
+string[] guesses = EnterGuesses();
+PrintGuesses();
 
 
+
+
+//end main
 
 //functions
 
@@ -27,31 +35,20 @@ string[] EnterGuesses()
 {
     string[] guesses = new string[4];
 
-    Console.WriteLine("Pick 4 colours out of red, blue, green, yellow, black or white.\n ");
+    string[] orderWords = ["first", "second", "third", "final"];
 
-    for(int i = 4; i >= 0; --i)
+    Console.WriteLine("\nPick 4 colors out of red, blue, green, yellow, black and white.\n");
+
+    for (int i = 0; i < 4; i++)
     {
-        switch (i)
+        Console.WriteLine($"Enter your {orderWords[i]} color:");
+
+        guesses[i] = Console.ReadLine()?.ToLower().Trim();
+
+        while(string.IsNullOrWhiteSpace(guesses[i]))
         {
-            case 4:
-                Console.WriteLine("Enter your first color");
-                Console.ReadLine();
-                break;
-
-            case 3:
-                Console.WriteLine("Enter your second color");
-                Console.ReadLine();
-                break;
-
-            case 2:
-                Console.WriteLine("Enter your thrid color");
-                Console.ReadLine();
-                break;
-
-            case 1:
-                Console.WriteLine("Enter your final color");
-                Console.ReadLine();
-                break;
+            Console.WriteLine("No color entered, plaease pick red, blue, green, yellow, black or white");
+            guesses[i] = Console.ReadLine()?.ToLower().Trim();
         }
     }
 
@@ -63,16 +60,41 @@ string[] GetRandomSequence()
 
     string[] secretOrder = ["color", "color", "color", "color"];
 
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        int arrayColor = Random.Shared.Next(1, 7);
-        int colorPicker = arrayColor;
+        int arrayColor = Random.Shared.Next(0, listOfColours.Length);
 
-        string randomColor = listOfColours[colorPicker];
+        string randomColor = listOfColours[arrayColor];
 
         secretOrder[i] = randomColor;
     }
     return secretOrder;
 }
 
-//Bool CompareGuessToSequence()
+void PrintGuesses()
+{
+    
+    string guessesPrint = string.Join(", ", guesses);
+
+    Console.WriteLine($"\nYou entered: {guessesPrint}");
+
+}
+
+void CompareGuessToSequence()
+{
+    int correctColor = 0;
+    int correctOrder = 0;
+
+
+
+    for (int i = 0; i < 4; i++)
+    {
+        
+        if (secretOrder[i] == guesses[i])
+        {
+            correctOrder++;
+        }
+    }
+
+    Console.WriteLine($"You have {} colors correct.\n You have {correctOrder} colors in the correct position");
+}
