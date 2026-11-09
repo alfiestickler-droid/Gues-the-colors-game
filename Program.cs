@@ -1,4 +1,5 @@
 ﻿bool exit = false;
+bool win = false;
 //colors for guessing
 string red = "red";
 string blue = "blue";
@@ -15,14 +16,23 @@ do
 {
     StartGame();
     string[] secretOrder = GetRandomSequence();
+
     for (int i = 9; i > 0; i--)
     {
         Console.WriteLine($"Guesses remaining {i}");
         string[] guesses = EnterGuesses();
         PrintGuesses(guesses);
         CompareGuessToSequence(guesses, secretOrder);
+        if (win == true)
+        {
+            break;
+        }
+
     }
-    Console.WriteLine($"Sorry you lose, the sequence was {string.Join(",", secretOrder)}");
+    while (win == false)
+    {
+        Console.WriteLine($"Sorry you lose, the sequence was {string.Join(",", secretOrder)}");
+    }
 
     PlayAgain();
 } while (exit == false);
@@ -54,7 +64,7 @@ string[] EnterGuesses()
 
         guesses[i] = Console.ReadLine()?.ToLower().Trim();
 
-        while(string.IsNullOrWhiteSpace(guesses[i]))
+        while (string.IsNullOrWhiteSpace(guesses[i]))
         {
             Console.WriteLine("No color entered, plaease pick red, blue, green, yellow, black or white");
             guesses[i] = Console.ReadLine()?.ToLower().Trim();
@@ -88,7 +98,7 @@ string[] GetRandomSequence()
 
 void PrintGuesses(string[] guesses)
 {
-    
+
     string guessesPrint = string.Join(", ", guesses);
 
     Console.WriteLine($"\nYou entered: {guessesPrint}");
@@ -110,7 +120,7 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
 
     for (int i = 0; i < 4; i++)
     {
-        
+
         if (secretOrder[i] == guesses[i])
         {
             correctOrder++;
@@ -119,6 +129,7 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
     if (correctOrder == 4)
     {
         Console.WriteLine($"Congratulations you win! the sequence was {string.Join(",", secretOrder)}");
+        win = true;
     }
     else
     {
@@ -136,9 +147,9 @@ void PlayAgain()
         Console.WriteLine("Sorry not a valid input, please enter y for yes or n for no.");
         userAnswer = Console.ReadLine().ToLower().Trim();
     }
-        if (userAnswer == "n")
-        {
-            exit = true;
-        }
-                
+    if (userAnswer == "n")
+    {
+        exit = true;
+    }
+
 }
