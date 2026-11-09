@@ -110,7 +110,7 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
     int correctColor = 0;
     int correctOrder = 0;
 
-    //loop listOfColors
+    
     for (int i = 0; i < listOfColours.Length; i++)
     {
         if (guesses.Contains(listOfColours[i]))
