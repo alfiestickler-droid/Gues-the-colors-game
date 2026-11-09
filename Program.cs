@@ -110,13 +110,19 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
     int correctColor = 0;
     int correctOrder = 0;
 
-    for (int i = 0; i < 6; i++)
+    //loop listOfColors
+    for (int i = 0; i < secretOrder.Length; i++)
     {
-        if (secretOrder.Contains(listOfColours[i]) && guesses.Contains(listOfColours[i]))
+        for (int j = 0; j < guesses.Length; j++)
         {
-            correctColor++;
+            if (secretOrder[i] == guesses[j])
+            {
+                correctColor++;
+                break;
+            }
         }
     }
+
 
     for (int i = 0; i < 4; i++)
     {
@@ -133,7 +139,7 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
     }
     else
     {
-        Console.WriteLine($"You have {correctColor} colors correct.\n You have {correctOrder} colors in the correct position");
+        Console.WriteLine($"{correctColor} of your guesses exsist in the secret order.\n You have {correctOrder} colors in the correct position");
     }
 }
 
