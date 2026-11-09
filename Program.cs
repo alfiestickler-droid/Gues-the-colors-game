@@ -59,6 +59,12 @@ string[] EnterGuesses()
             Console.WriteLine("No color entered, plaease pick red, blue, green, yellow, black or white");
             guesses[i] = Console.ReadLine()?.ToLower().Trim();
         }
+
+        while (guesses[i] != "red" && guesses[i] != "blue" && guesses[i] != "green" && guesses[i] != "yellow" && guesses[i] != "black" && guesses[i] != "white")
+        {
+            Console.WriteLine("Invalid guess, please enter red, blue, green, yellow, black or white");
+            guesses[i] = Console.ReadLine()?.ToLower().Trim();
+        }
     }
 
     return guesses;
@@ -125,20 +131,14 @@ void PlayAgain()
     Console.WriteLine("Would you like to play again (y/n)?");
     string userAnswer = Console.ReadLine().ToLower().Trim();
 
-    while (userAnswer != "y" || userAnswer != "n")
+    while (userAnswer != "y" && userAnswer != "n")
     {
+        Console.WriteLine("Sorry not a valid input, please enter y for yes or n for no.");
+        userAnswer = Console.ReadLine().ToLower().Trim();
+    }
         if (userAnswer == "n")
         {
             exit = true;
         }
-        else if (userAnswer == "y")
-        {
-            exit = false;
-        }
-        else
-        {
-            Console.WriteLine("Sorry not a valid input, please enter y for yes or n for no.");
-            userAnswer = Console.ReadLine().ToLower().Trim();
-        }
-    }
+                
 }
