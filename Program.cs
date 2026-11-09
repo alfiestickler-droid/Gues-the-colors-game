@@ -141,7 +141,7 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
     }
     else
     {
-        Console.WriteLine($"{correctColor} of your guesses exsist in the secret order.\n You have {correctOrder} colors in the correct position");
+        Console.WriteLine($"{correctColor} of your guesses exist in the secret order.\n You have {correctOrder} colors in the correct position");
     }
 }
 
