@@ -1,4 +1,6 @@
-﻿bool exit = false;
+﻿using System.Linq;
+
+bool exit = false;
 bool win = false;
 //colors for guessing
 string red = "red";
@@ -109,21 +111,8 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
 {
     int correctColor = 0;
     int correctOrder = 0;
-
     
-    for (int i = 0; i < listOfColours.Length; i++)
-    {
-        if (guesses.Contains(listOfColours[i]))
-        {
-            for (int j = 0; j < secretOrder.Length; j++)
-            {
-                if (secretOrder[j] == listOfColours[i])
-                {
-                    correctColor++;
-                }
-            }
-        }
-    }
+
 
 
     for (int i = 0; i < 4; i++)
