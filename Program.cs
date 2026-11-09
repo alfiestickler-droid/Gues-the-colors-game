@@ -29,7 +29,7 @@ do
         }
 
     }
-    while (win == false)
+    if (win == false)
     {
         Console.WriteLine($"Sorry you lose, the sequence was {string.Join(",", secretOrder)}");
     }
@@ -111,14 +111,16 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
     int correctOrder = 0;
 
     //loop listOfColors
-    for (int i = 0; i < secretOrder.Length; i++)
+    for (int i = 0; i < listOfColours.Length; i++)
     {
-        for (int j = 0; j < guesses.Length; j++)
+        if (guesses.Contains(listOfColours[i]))
         {
-            if (secretOrder[i] == guesses[j])
+            for (int j = 0; j < secretOrder.Length; j++)
             {
-                correctColor++;
-                break;
+                if (secretOrder[j] == listOfColours[i])
+                {
+                    correctColor++;
+                }
             }
         }
     }
