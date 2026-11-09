@@ -15,9 +15,7 @@ StartGame();
 string[] secretOrder = GetRandomSequence();
 string[] guesses = EnterGuesses();
 PrintGuesses();
-
-
-
+CompareGuessToSequence();
 
 //end main
 
@@ -85,7 +83,13 @@ void CompareGuessToSequence()
     int correctColor = 0;
     int correctOrder = 0;
 
-
+    for (int i = 0; i < 6; i++)
+    {
+        if (secretOrder.Contains(listOfColours[i]) && guesses.Contains(listOfColours[i]))
+        {
+            correctColor++;
+        }
+    }
 
     for (int i = 0; i < 4; i++)
     {
@@ -96,5 +100,5 @@ void CompareGuessToSequence()
         }
     }
 
-    Console.WriteLine($"You have {} colors correct.\n You have {correctOrder} colors in the correct position");
+    Console.WriteLine($"You have {correctColor} colors correct.\n You have {correctOrder} colors in the correct position");
 }
