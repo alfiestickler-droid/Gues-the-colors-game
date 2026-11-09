@@ -6,7 +6,12 @@ string yellow = "yellow";
 string black = "black";
 string white = "white";
 
-EnterGuesses();
+//array of colors for sequence
+string[] listOfColours = [red, blue, green, yellow, black, white];
+
+string[] secretOrder = GetRandomSequence();
+
+
 
 //functions
 
@@ -53,5 +58,21 @@ string[] EnterGuesses()
     return guesses;
 }
 
-//string[] GetRandomSequence()
+string[] GetRandomSequence()
+{
+
+    string[] secretOrder = ["color", "color", "color", "color"];
+
+    for(int i = 0; i < 4; i++)
+    {
+        int arrayColor = Random.Shared.Next(1, 7);
+        int colorPicker = arrayColor;
+
+        string randomColor = listOfColours[colorPicker];
+
+        secretOrder[i] = randomColor;
+    }
+    return secretOrder;
+}
+
 //Bool CompareGuessToSequence()
