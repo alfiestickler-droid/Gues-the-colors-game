@@ -1,4 +1,5 @@
-﻿//colors for guessing
+﻿bool exit = false;
+//colors for guessing
 string red = "red";
 string blue = "blue";
 string green = "green";
@@ -10,12 +11,22 @@ string white = "white";
 string[] listOfColours = [red, blue, green, yellow, black, white];
 
 //main
+do
+{
+    StartGame();
+    string[] secretOrder = GetRandomSequence();
+    for (int i = 9; i > 0; i--)
+    {
+        Console.WriteLine($"Guesses remaining {i}");
+        string[] guesses = EnterGuesses();
+        PrintGuesses(guesses);
+        CompareGuessToSequence(guesses, secretOrder);
+    }
+    Console.WriteLine($"Sorry you lose, the sequence was {string.Join(",", secretOrder)}");
 
-StartGame();
-string[] secretOrder = GetRandomSequence();
-string[] guesses = EnterGuesses();
-PrintGuesses();
-CompareGuessToSequence();
+    PlayAgain();
+} while (exit == false);
+
 
 //end main
 
@@ -69,7 +80,7 @@ string[] GetRandomSequence()
     return secretOrder;
 }
 
-void PrintGuesses()
+void PrintGuesses(string[] guesses)
 {
     
     string guessesPrint = string.Join(", ", guesses);
@@ -78,7 +89,7 @@ void PrintGuesses()
 
 }
 
-void CompareGuessToSequence()
+void CompareGuessToSequence(string[] guesses, string[] secretOrder)
 {
     int correctColor = 0;
     int correctOrder = 0;
@@ -99,6 +110,35 @@ void CompareGuessToSequence()
             correctOrder++;
         }
     }
+    if (correctOrder == 4)
+    {
+        Console.WriteLine($"Congratulations you win! the sequence was {string.Join(",", secretOrder)}");
+    }
+    else
+    {
+        Console.WriteLine($"You have {correctColor} colors correct.\n You have {correctOrder} colors in the correct position");
+    }
+}
 
-    Console.WriteLine($"You have {correctColor} colors correct.\n You have {correctOrder} colors in the correct position");
+void PlayAgain()
+{
+    Console.WriteLine("Would you like to play again (y/n)?");
+    string userAnswer = Console.ReadLine().ToLower().Trim();
+
+    while (userAnswer != "y" || userAnswer != "n")
+    {
+        if (userAnswer == "n")
+        {
+            exit = true;
+        }
+        else if (userAnswer == "y")
+        {
+            exit = false;
+        }
+        else
+        {
+            Console.WriteLine("Sorry not a valid input, please enter y for yes or n for no.");
+            userAnswer = Console.ReadLine().ToLower().Trim();
+        }
+    }
 }
