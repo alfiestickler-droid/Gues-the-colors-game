@@ -111,9 +111,35 @@ void CompareGuessToSequence(string[] guesses, string[] secretOrder)
 {
     int correctColor = 0;
     int correctOrder = 0;
-    
 
+    bool[] secretMatched = new bool[4];
+    bool[] guessMatched = new bool[4];
 
+    //find color matches
+    for (int i = 0; i < guesses.Length; i++)
+    {
+        if (secretOrder[i] == guesses[i])
+        {
+            correctColor++;
+            secretMatched[i] = true;
+            guessMatched[i] = true;
+        }
+    }
+
+    for (int i = 0; i < guesses.Length; i++)
+    {
+        if (guessMatched[i]) continue;
+
+        for(int j = 0; j < secretOrder.Length; j++)
+        {
+            if (!secretMatched[j] && secretOrder[j] == guesses[i])
+            {
+                correctColor++;
+                secretMatched[j] = true;
+                break;
+            }
+        }
+    }
 
     for (int i = 0; i < 4; i++)
     {
